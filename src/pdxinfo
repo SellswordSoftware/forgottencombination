@@ -1,0 +1,6 @@
+name={{projName}}
+author={{author}}
+description={{description}}
+bundleID={{bundleID}}
+version={{version}}
+buildNumber={{buildNumber}}

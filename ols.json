@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DanielGavin/ols/master/misc/ols.schema.json",
+
+  "collections": [
+    {
+      "name": "forgottencombination",
+      "path": "."
+    }
+  ],
+
+  "enable_hover": true,
+  "enable_snippets": true,
+  "enable_document_symbols": true
+}
