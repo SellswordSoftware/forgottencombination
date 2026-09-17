@@ -25,7 +25,7 @@ eventHandler :: proc "c" (api: ^pd.Api, event: pd.System_Event, arg: u32) -> i32
 
 update_callback :: proc "c" (userdata: rawptr) -> pd.Update_Result {
 	context = global_ctx
-	update_lock_input()
+	update_game()
 	draw_game()
 	return .Update_Display
 }
@@ -36,4 +36,9 @@ game_init :: proc() {
 
 	init_lock()
 	init_combination()
+	init_tutorial_scratchpad()
+	game.tutorial_visible = true
+	game.scene = .Dialogue
+	game.dialogue.sequence = .Player_Briefing
+	game.dialogue.page = 0
 }

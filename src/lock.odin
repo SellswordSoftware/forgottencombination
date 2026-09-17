@@ -18,6 +18,7 @@ init_lock :: proc() {
 }
 
 advance_dial :: proc(direction: Turn_Direction) {
+	dial_number_before_turn := game.dial_number
 	#partial switch direction {
 	case .Clockwise:
 		game.dial_number = (game.dial_number + Dial_Number_Count - 1) % Dial_Number_Count
@@ -31,14 +32,17 @@ advance_dial :: proc(direction: Turn_Direction) {
 	was_cleared := game.combination.is_cleared
 	update_clear_progress(direction)
 	if was_cleared {
-		update_combination(direction)
+		update_combination(direction, dial_number_before_turn)
 	}
 	play_detent_click()
 }
 
 update_lock_input :: proc() {
 	game.dial_angle = pd_api.system.get_crank_angle()
-	game.crank_remainder += pd_api.system.get_crank_change()
+
+	crank_change := pd_api.system.get_crank_change()
+	game.crank_moved_this_frame = crank_change != 0
+	game.crank_remainder += crank_change
 
 	for game.crank_remainder >= Knob_Step_Degrees {
 		game.crank_remainder -= Knob_Step_Degrees
